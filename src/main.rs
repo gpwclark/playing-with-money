@@ -4,7 +4,6 @@ use log::{debug, error, warn};
 use rust_decimal::prelude::FromPrimitive;
 use rust_decimal::Decimal;
 use serde::{de, Deserialize};
-use simple_logger::SimpleLogger;
 use std::collections::HashMap;
 use std::ffi::OsStr;
 use std::fs::File;
@@ -212,7 +211,6 @@ fn play_with_money(
 }
 
 fn main() {
-    SimpleLogger::new().env().init().unwrap();
     let matches = command!()
         .arg(
             arg!([transactions_csv])
@@ -240,6 +238,7 @@ fn main() {
 mod test {
     use super::*;
     use std::path::PathBuf;
+    use simple_logger::SimpleLogger;
 
     /// Return the repo root directory path.
     fn repo_dir() -> PathBuf {
@@ -253,6 +252,7 @@ mod test {
 
     #[test]
     fn test_reader() {
+        SimpleLogger::new().env().init().unwrap();
         let p = data_dir().join("sample.csv");
         let valid_input = validate_input(Some(p.as_os_str()));
         assert!(valid_input.is_ok());
@@ -265,6 +265,7 @@ mod test {
 
     #[test]
     fn test_records() {
+        SimpleLogger::new().env().init().unwrap();
         let p = data_dir().join("sample.csv");
         let vec = read_records_into_memory(&*p).unwrap();
         assert_eq!(5, vec.len());
@@ -277,6 +278,7 @@ mod test {
 
     #[test]
     fn test_main() {
+        SimpleLogger::new().env().init().unwrap();
         let p = data_dir().join("sample.csv");
         let mut clients = HashMap::new();
         play_with_money(Some(p.as_os_str()), &mut clients).unwrap();

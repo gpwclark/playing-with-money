@@ -10,6 +10,8 @@ clap = { version = "3.1.6", features = ["cargo"] }
 csv = "1.1"
 serde = { version = "1.0", features = ["derive"] }
 log = "0.4"
-simple_logger = "2.1"
 rust_decimal = "1.23"
 rust_decimal_macros = "1.23"
+
+[dev-dependencies]
+simple_logger = "2.1"
